@@ -1,0 +1,11 @@
+import schoolData from '../data/compact-schools.json?raw';
+import sourceData from '../data/source.json';
+import {searchDirectory,type School} from './search';
+export type {School} from './search';
+export {STATES} from './search';
+type SchoolRow=[string,string,string,string,string,string,string,string,string,string,boolean,string,string,string];
+const schools:School[]=(JSON.parse(schoolData) as SchoolRow[]).map(([id,name,district,districtId,city,state,zip,address,grades,type,charter,website,phone,sourceYear])=>({id,name,district,districtId,city,state,zip,address,grades,type,charter,website,phone,sourceYear}));
+const byId=new Map(schools.map(s=>[s.id,s]));
+export const source=sourceData;
+export const getSchool=(id:string)=>byId.get(id);
+export const searchSchools=(q='',state='',type='',page=1)=>searchDirectory(schools,{q,state,type,page});

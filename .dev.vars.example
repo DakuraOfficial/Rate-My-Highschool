@@ -1,0 +1,2 @@
+# Local development account only. Production identity is supplied by Sites.
+MODERATOR_USER_IDS="local_seedy"

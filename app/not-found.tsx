@@ -1,0 +1,1 @@
+export default function NotFound(){return <div className="container page-content empty-state"><h1 className="page-title">We couldn’t find that school.</h1><p>The school may be outside this directory, or the link may be incorrect.</p><a className="button" href="/">Search public high schools</a></div>;}

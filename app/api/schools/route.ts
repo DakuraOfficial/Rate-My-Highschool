@@ -1,0 +1,3 @@
+import {getSchool} from '../../lib/directory';
+import {getSchoolSummaries} from '../../lib/reviews';
+export async function GET(request:Request){const ids=[...new Set((new URL(request.url).searchParams.get('ids')??'').split(','))].filter(id=>/^\d{12}$/.test(id)).slice(0,3);const schools=ids.flatMap(id=>{const s=getSchool(id);return s?[{id:s.id,name:s.name,city:s.city,state:s.state,district:s.district,grades:s.grades,type:s.type,charter:s.charter,sourceYear:s.sourceYear}]:[];});try{const summaries=await getSchoolSummaries(schools.map(s=>s.id));return Response.json({schools,summaries},{headers:{'Cache-Control':'no-store'}});}catch{return Response.json({error:'Community ratings are temporarily unavailable. Please retry.'},{status:503});}}

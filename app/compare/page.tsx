@@ -1,0 +1,3 @@
+import CompareTable from '../components/CompareTable';
+import {getSchool} from '../lib/directory';
+export default async function Comparison({searchParams}:{searchParams:Promise<{schools?:string}>}){const {schools}=await searchParams;const initialSchools=[...new Set((schools??'').split(','))].slice(0,3).flatMap(id=>{const s=getSchool(id);return s?[{id:s.id,name:s.name,city:s.city,state:s.state}]:[];});return <div className="container page-content"><h1 className="page-title">Find the right fit, side by side.</h1><p className="page-intro">Compare what matters to your family across up to three public high schools.</p><CompareTable initialSchools={initialSchools}/></div>;}
